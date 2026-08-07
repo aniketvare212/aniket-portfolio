@@ -9,11 +9,12 @@ import Education from "./components/Education";
 import Resume from "./components/Resume";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import BackToTop from "./components/BackToTop";
 
 function App() {
   return (
     <>
-      <Navbar />
+       <Navbar />
 
       <main>
         <Hero />
@@ -28,6 +29,8 @@ function App() {
       </main>
 
       <Footer />
+
+      <BackToTop />
     </>
   );
 }
