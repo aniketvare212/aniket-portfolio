@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
-🔗 **Portfolio:** https://aniket-portfolio.vercel.app/
+🔗 **Portfolio:** https://aniket-portfolio-khaki.vercel.app/
 
 ---
 
