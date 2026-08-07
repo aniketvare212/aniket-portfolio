@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aniketvare.vercel.app
+Sitemap: https://aniket-portfolio.vercel.app/sitemap.xml
