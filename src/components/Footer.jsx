@@ -82,7 +82,7 @@ function Footer() {
             <div className="flex gap-3">
 
               <a
-                href="https://github.com/"
+                href="https://github.com/anikketvare212"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -92,7 +92,7 @@ function Footer() {
               </a>
 
               <a
-                href="https://linkedin.com/"
+                href="https://linkedin.com/in/aniket-vare"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"

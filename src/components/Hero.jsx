@@ -184,7 +184,7 @@ function Hero() {
 
               <div>
                 <p className="text-3xl font-bold text-white">
-                  6+
+                  5+
                 </p>
 
                 <p className="text-sm text-slate-500 mt-1">
@@ -194,7 +194,7 @@ function Hero() {
 
               <div>
                 <p className="text-3xl font-bold text-white">
-                  10+
+                  5+
                 </p>
 
                 <p className="text-sm text-slate-500 mt-1">
@@ -204,7 +204,7 @@ function Hero() {
 
               <div>
                 <p className="text-3xl font-bold text-white">
-                  4+
+                2+
                 </p>
 
                 <p className="text-sm text-slate-500 mt-1">

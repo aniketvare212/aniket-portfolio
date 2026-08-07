@@ -1,22 +1,20 @@
+
 import { useState } from "react";
-import { FiGithub, FiExternalLink, FiX } from "react-icons/fi";
+import { FiGithub, FiX } from "react-icons/fi";
 import Reveal from "./Reveal";
 
 const projects = [
- 
-
   {
     id: 2,
     title: "Heart Disease Prediction",
     category: "Machine Learning",
-    image: "/projects/heart-disease.png",
+    image: "/heart-disease.png",
     description:
       "Machine learning application that predicts the likelihood of heart disease using patient health-related features.",
     longDescription:
       "A machine learning project using classification algorithms to analyze healthcare-related data and generate a prediction through an interactive Streamlit interface.",
     technologies: ["Python", "Pandas", "Scikit-learn", "Streamlit"],
     github: "https://github.com/",
-    demo: "#",
     featured: true,
   },
 
@@ -24,14 +22,13 @@ const projects = [
     id: 3,
     title: "Telco Customer Churn Prediction",
     category: "Machine Learning",
-    image: "/projects/churn.png",
+    image: "/churn.png",
     description:
       "Predictive analytics application that identifies customers who may be likely to leave a telecom service.",
     longDescription:
       "The project focuses on data preprocessing, exploratory analysis, feature engineering and machine learning classification to estimate customer churn probability.",
     technologies: ["Python", "Pandas", "Scikit-learn", "Streamlit"],
     github: "https://github.com/",
-    demo: "#",
     featured: false,
   },
 
@@ -39,14 +36,13 @@ const projects = [
     id: 4,
     title: "Power BI Sales Dashboard",
     category: "Data Analytics",
-    image: "/projects/sales-dashboard.png",
+    image: "/sales-dashboard.png",
     description:
       "Interactive dashboard for monitoring sales performance, KPIs, trends and business insights.",
     longDescription:
       "A business intelligence dashboard designed to transform sales data into interactive visualizations and actionable business insights.",
     technologies: ["Power BI", "Excel", "Data Analysis"],
     github: "https://github.com/",
-    demo: "#",
     featured: false,
   },
 
@@ -54,14 +50,13 @@ const projects = [
     id: 5,
     title: "Komal Cake Corner",
     category: "Web Development",
-    image: "/projects/komal-cake-corner.png",
+    image: "/komal-cake-corner.png",
     description:
       "Online cake shop website with product browsing, ordering, customer accounts and payment integration.",
     longDescription:
       "A PHP and MySQL based e-commerce website created for an online cake business. The platform includes product management, cart functionality, checkout and order management.",
     technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
     github: "https://github.com/",
-    demo: "#",
     featured: true,
   },
 
@@ -69,21 +64,19 @@ const projects = [
     id: 6,
     title: "EDUSITY",
     category: "Web Development",
-    image: "/projects/edusity.png",
+    image: "/edusity.png",
     description:
       "Modern educational website interface built with React and responsive UI components.",
     longDescription:
       "A responsive educational platform interface developed using React with reusable components and a modern user experience.",
     technologies: ["React", "JavaScript", "CSS"],
     github: "https://github.com/",
-    demo: "#",
     featured: false,
   },
 ];
 
 const categories = [
   "All",
-  "Full Stack",
   "Machine Learning",
   "Data Analytics",
   "Web Development",
@@ -107,7 +100,7 @@ function Projects() {
     >
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Header */}
+        {/* ================= HEADER ================= */}
         <Reveal>
           <div className="text-center mb-12">
 
@@ -124,14 +117,14 @@ function Projects() {
 
             <p className="mt-5 max-w-2xl mx-auto text-slate-400">
               Practical projects demonstrating my skills in
-              full-stack development, machine learning,
-              data analytics and modern web technologies.
+              machine learning, data analytics and modern
+              web development.
             </p>
 
           </div>
         </Reveal>
 
-        {/* Filters */}
+        {/* ================= FILTERS ================= */}
         <Reveal delay={0.1}>
           <div className="flex flex-wrap justify-center gap-3 mb-12">
 
@@ -152,7 +145,7 @@ function Projects() {
           </div>
         </Reveal>
 
-        {/* Projects Grid */}
+        {/* ================= PROJECT GRID ================= */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {filteredProjects.map((project, index) => (
@@ -160,9 +153,10 @@ function Projects() {
               key={project.id}
               delay={index * 0.08}
             >
+
               <article className="group h-full rounded-2xl overflow-hidden bg-slate-950 border border-white/10 hover:border-blue-500/40 hover:-translate-y-2 transition-all duration-300">
 
-                {/* Image */}
+                {/* ================= IMAGE ================= */}
                 <div className="relative aspect-video overflow-hidden bg-slate-800">
 
                   <img
@@ -188,8 +182,8 @@ function Projects() {
 
                 </div>
 
-                {/* Content */}
-                <div className="p-6 flex flex-col h-[calc(100%-56.25%)]">
+                {/* ================= CONTENT ================= */}
+                <div className="p-6 flex flex-col">
 
                   <h3 className="text-xl font-bold text-white">
                     {project.title}
@@ -213,9 +207,10 @@ function Projects() {
 
                   </div>
 
-                  {/* Buttons */}
+                  {/* ================= BUTTONS ================= */}
                   <div className="flex items-center gap-3 mt-6 pt-5 border-t border-white/10">
 
+                    {/* View Details */}
                     <button
                       onClick={() => setSelectedProject(project)}
                       className="flex-1 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition"
@@ -223,6 +218,7 @@ function Projects() {
                       View Details
                     </button>
 
+                    {/* GitHub */}
                     <a
                       href={project.github}
                       target="_blank"
@@ -233,27 +229,18 @@ function Projects() {
                       <FiGithub />
                     </a>
 
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${project.title} live demo`}
-                      className="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-blue-500/40 transition"
-                    >
-                      <FiExternalLink />
-                    </a>
-
                   </div>
 
                 </div>
 
               </article>
+
             </Reveal>
           ))}
 
         </div>
 
-        {/* Empty State */}
+        {/* ================= EMPTY STATE ================= */}
         {filteredProjects.length === 0 && (
           <div className="text-center py-20 text-slate-500">
             No projects found.
@@ -262,12 +249,13 @@ function Projects() {
 
       </div>
 
-      {/* Project Modal */}
+      {/* ================= PROJECT MODAL ================= */}
       {selectedProject && (
         <div
           className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-5"
           onClick={() => setSelectedProject(null)}
         >
+
           <div
             className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-slate-950 border border-white/10 rounded-2xl shadow-2xl"
             onClick={(event) => event.stopPropagation()}
@@ -324,7 +312,7 @@ function Projects() {
 
               </div>
 
-              {/* Links */}
+              {/* GitHub Only */}
               <div className="flex flex-wrap gap-3 mt-8">
 
                 <a
@@ -337,21 +325,12 @@ function Projects() {
                   GitHub
                 </a>
 
-                <a
-                  href={selectedProject.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 text-white hover:border-blue-500/40 transition"
-                >
-                  <FiExternalLink />
-                  Live Demo
-                </a>
-
               </div>
 
             </div>
 
           </div>
+
         </div>
       )}
 
@@ -360,3 +339,4 @@ function Projects() {
 }
 
 export default Projects;
+
