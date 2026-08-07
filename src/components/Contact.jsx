@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 import {
@@ -14,42 +14,82 @@ import {
 } from "react-icons/fi";
 
 function Contact() {
-  const formRef = useRef();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   const [status, setStatus] = useState("");
   const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    setIsSending(true);
-    setStatus("");
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setIsSending(true);
+  setStatus("");
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const text = await response.text();
+
+    let result = {};
 
     try {
-      const result = await emailjs.sendForm(
-        "service_r4tbehb",
-        "templste_f05ytrq",
-        formRef.current,
-        {
-          publicKey: "R6l2QOgAnQ8rER2ZT",
-        }
-      );
-
-      console.log("EmailJS Success:", result);
-
-      setStatus("success");
-
-      formRef.current.reset();
-    } catch (error) {
-      console.error("EmailJS Error:", error);
-      console.error("Status:", error?.status);
-      console.error("Text:", error?.text);
-
-      setStatus("error");
-    } finally {
-      setIsSending(false);
+      result = text ? JSON.parse(text) : {};
+    } catch {
+      result = {
+        message: text || "Server returned an invalid response.",
+      };
     }
-  };
+
+    console.log("API Status:", response.status);
+    console.log("API Response:", result);
+
+    if (!response.ok) {
+      throw new Error(
+        result.message || `Request failed with status ${response.status}`
+      );
+    }
+
+    setStatus("success");
+
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+
+  } catch (error) {
+    console.error("Contact Form Error:", error);
+
+    setStatus("error");
+  } finally {
+    setIsSending(false);
+  }
+};
+
+
+
+
 
   return (
     <section
@@ -57,15 +97,13 @@ function Contact() {
       className="relative py-24 bg-slate-950 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
 
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
-      </div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
 
-        {/* Heading */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -90,9 +128,10 @@ function Contact() {
           </p>
         </motion.div>
 
+        {/* Main Content */}
         <div className="grid lg:grid-cols-5 gap-10">
 
-          {/* CONTACT INFORMATION */}
+          {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -134,7 +173,7 @@ function Contact() {
 
               {/* Phone */}
               <a
-                href="tel:+919322819348"
+                href="tel:+917020699657"
                 className="group flex items-center gap-4 mt-6"
               >
                 <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
@@ -182,6 +221,7 @@ function Contact() {
                     href="https://github.com/anikketvare212"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub"
                     className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-blue-500/40 transition"
                   >
                     <FiGithub size={19} />
@@ -191,6 +231,7 @@ function Contact() {
                     href="https://linkedin.com/in/aniket-vare"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn"
                     className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-blue-500/40 transition"
                   >
                     <FiLinkedin size={19} />
@@ -198,6 +239,7 @@ function Contact() {
 
                   <a
                     href="mailto:vareaniket330@gmail.com"
+                    aria-label="Email"
                     className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-blue-500/40 transition"
                   >
                     <FiMail size={19} />
@@ -205,11 +247,10 @@ function Contact() {
 
                 </div>
               </div>
-
             </div>
           </motion.div>
 
-          {/* FORM */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -220,7 +261,6 @@ function Contact() {
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 sm:p-8">
 
               <form
-                ref={formRef}
                 onSubmit={handleSubmit}
                 className="space-y-6"
               >
@@ -240,9 +280,12 @@ function Contact() {
                       id="name"
                       name="name"
                       type="text"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="Enter your name"
                       required
-                      className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/60 transition"
+                      disabled={isSending}
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/60 transition disabled:opacity-50"
                     />
                   </div>
 
@@ -258,9 +301,12 @@ function Contact() {
                       id="email"
                       name="email"
                       type="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="you@example.com"
                       required
-                      className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/60 transition"
+                      disabled={isSending}
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/60 transition disabled:opacity-50"
                     />
                   </div>
 
@@ -279,9 +325,12 @@ function Contact() {
                     id="subject"
                     name="subject"
                     type="text"
+                    value={formData.subject}
+                    onChange={handleChange}
                     placeholder="What would you like to discuss?"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/60 transition"
+                    disabled={isSending}
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/60 transition disabled:opacity-50"
                   />
                 </div>
 
@@ -298,9 +347,12 @@ function Contact() {
                     id="message"
                     name="message"
                     rows="7"
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Tell me about your project or opportunity..."
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none resize-none focus:border-blue-500/60 transition"
+                    disabled={isSending}
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 text-white placeholder:text-slate-600 outline-none resize-none focus:border-blue-500/60 transition disabled:opacity-50"
                   />
                 </div>
 
@@ -311,6 +363,7 @@ function Contact() {
 
                     <span>
                       Message sent successfully!
+                      I'll get back to you soon.
                     </span>
                   </div>
                 )}
@@ -326,11 +379,11 @@ function Contact() {
                   </div>
                 )}
 
-                {/* Button */}
+                {/* Submit */}
                 <button
                   type="submit"
                   disabled={isSending}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold shadow-lg shadow-blue-600/20 transition"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold shadow-lg shadow-blue-600/20 transition"
                 >
                   {isSending ? (
                     "Sending..."
@@ -353,3 +406,4 @@ function Contact() {
 }
 
 export default Contact;
+
