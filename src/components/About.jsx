@@ -97,7 +97,7 @@ export default function About() {
             </p>
 
             <p className="text-slate-400 leading-8">
-              Currently, I'm focused on strengthening my full-stack
+              Currently, I'm focused on strengthening my Web
               development, data science and AI/ML skills.
             </p>
 

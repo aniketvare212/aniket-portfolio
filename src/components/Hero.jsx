@@ -107,7 +107,7 @@ function Hero() {
                 transition={{ delay: 0.3 }}
                 className="text-2xl sm:text-3xl font-semibold text-slate-200"
               >
-                Full Stack Developer
+                Web Developer | Data Analyst | Data scientist
               </motion.div>
             </div>
 
@@ -115,7 +115,7 @@ function Hero() {
             <p className="mt-6 max-w-xl text-lg text-slate-400 leading-8">
               I build modern web applications and data-driven
               solutions using technologies like React, Node.js,
-              Python and SQL.
+              Python, Machine Learning and SQL.
             </p>
 
             {/* Buttons */}
@@ -204,7 +204,7 @@ function Hero() {
 
               <div>
                 <p className="text-3xl font-bold text-white">
-                2+
+                4+
                 </p>
 
                 <p className="text-sm text-slate-500 mt-1">
@@ -458,6 +458,74 @@ function Hero() {
             >
               <span className="text-sm font-medium text-white">
                 🗄 SQL
+              </span>
+            </motion.div>
+
+              <motion.div
+              animate={{
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 3.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="
+                absolute
+                top-10
+                -top-2
+                sm:-top-10
+
+                px-4
+                py-3
+
+                rounded-xl
+
+                bg-slate-900/90
+                backdrop-blur
+
+                border
+                border-white/10
+
+                shadow-xl
+              "
+            >
+              <span className="text-sm font-medium text-white">
+                🤖 Machine Learning
+              </span>
+            </motion.div>
+
+              <motion.div
+              animate={{
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 3.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="
+                absolute
+                left-6s0
+                -bottom-2
+                sm:-bottom-10
+
+                px-4
+                py-3
+
+                rounded-xl
+
+                bg-slate-900/90
+                backdrop-blur
+
+                border
+                border-white/10
+
+                shadow-xl
+              "
+            >
+              <span className="text-sm font-medium text-white">
+                📊 Data Analysis
               </span>
             </motion.div>
 
